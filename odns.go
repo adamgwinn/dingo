@@ -35,6 +35,7 @@ type Odns struct {
 	server *string
 	sni *string
 	host *string
+	deviceid *string
 
 	string2rcode map[string]int
 	string2rtype map[string]uint16
@@ -49,6 +50,8 @@ func (R *Odns) Init() {
 		"OpenDNS: TLS SNI string to send (unencrypted, must validate as server cert)")
 	R.host = flag.String("odns:host", "api.openresolve.com",
 		"OpenDNS: HTTP 'Host' header (real FQDN, encrypted in TLS)")
+	R.host = flag.String("odns:deviceid", "0000",
+		"OpenDNS: deviceid to mimic ERC")
 
 	R.string2rcode = make(map[string]int)
 	for rcode,str := range dns.RcodeToString {
@@ -83,7 +86,7 @@ func (R *Odns) resolve(https *Https, server string, qname string, qtype int) *Re
 	r := Reply{ Status: -1 }
 
 	/* prepare */
-	uri := fmt.Sprintf("/%s/%s/%s", dns.Type(qtype).String(), qname, "0101380A5F996AE6") /* adams device id: 0101380A5F996AE6 */
+	uri := fmt.Sprintf("/%s/%s/%s", dns.Type(qtype).String(), qname, deviceid) /* adams device id: 0101380A5F996AE6 */
 
 	/* query */
 	buf, err := https.Get(server, *R.host, uri)
