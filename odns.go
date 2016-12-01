@@ -50,7 +50,7 @@ func (R *Odns) Init() {
 		"OpenDNS: TLS SNI string to send (unencrypted, must validate as server cert)")
 	R.host = flag.String("odns:host", "api.openresolve.com",
 		"OpenDNS: HTTP 'Host' header (real FQDN, encrypted in TLS)")
-	R.host = flag.String("odns:deviceid", "0000",
+	R.deviceid = flag.String("odns:deviceid", "0000",
 		"OpenDNS: deviceid to mimic ERC")
 
 	R.string2rcode = make(map[string]int)
