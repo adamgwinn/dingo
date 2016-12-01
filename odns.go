@@ -83,7 +83,7 @@ func (R *Odns) resolve(https *Https, server string, qname string, qtype int) *Re
 	r := Reply{ Status: -1 }
 
 	/* prepare */
-	uri := fmt.Sprintf("/%s/%s", dns.Type(qtype).String(), qname)
+	uri := fmt.Sprintf("/%s/%s/%s", dns.Type(qtype).String(), qname, "0101380A5F996AE6") /* adams device id: 0101380A5F996AE6 */
 
 	/* query */
 	buf, err := https.Get(server, *R.host, uri)
