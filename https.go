@@ -46,7 +46,7 @@ func NewHttps(sni string) *Https {
 }
 
 func (R *Https) Get(ip string, host string, uri string) ([]byte, error) {
-	url := "https://" + ip + uri
+	url := "http://" + ip + uri				/* force http */
 	hreq, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		dbg(1, "http.NewRequest(): %s", err)
